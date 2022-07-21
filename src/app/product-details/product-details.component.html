@@ -1,9 +1,8 @@
-<span>&larr; Click to see the shopping card :) </span>
 <div id="divBorder">
-<!--  *ngIf="(product | async) as product"-->
   <button [routerLink]="['']">Back to products list</button>
   <h2>Product with ID {{product.id}}</h2>
   <button (click)="deleteProduct()">Delete product</button>
+  <button [routerLink]="['/edit-product', product.id]">Edit product</button>
   <h1>{{product.name}}</h1>
   <button (click)="addToCart()">Add to cart</button>
   <ul>

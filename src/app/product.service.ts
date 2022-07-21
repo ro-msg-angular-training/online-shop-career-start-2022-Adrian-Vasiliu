@@ -35,4 +35,13 @@ export class ProductService {
     const data = {customer: "doej", products: this.orders}
     return this.httpClient.post("http://localhost:3000/products", data, {responseType: 'text'});
   }
+
+  updateProduct(product: ProductItemDetailed) {
+    return this.httpClient.put("http://localhost:3000/products/" + product.id, product);
+  }
+
+  addProduct(newProduct: ProductItemDetailed) {
+    return this.httpClient.post("http://localhost:3000/products/", newProduct);
+  }
+
 }

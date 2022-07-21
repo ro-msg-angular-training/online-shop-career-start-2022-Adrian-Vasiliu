@@ -1,0 +1,21 @@
+<br>
+<button [routerLink]="['']">Back to products list</button>
+<form [formGroup]="editForm" (ngSubmit)="addProduct()">
+  <label for="name">Name: </label>
+  <input id="name" type="text" formControlName="name">
+  <br>
+  <label for="category">Category: </label>
+  <input id="category" type="text" formControlName="category">
+  <br>
+  <label for="price">Price: </label>
+  <input id="price" type="text" formControlName="price">
+  <br>
+  <label for="description">Description: </label>
+  <input id="description" type="text" formControlName="description">
+  <br>
+  <label for="image">Image link: </label>
+  <input id="image" type="text" formControlName="image">
+  <br>
+  <button type="submit" [disabled]="!editForm.valid">Save</button>
+  <button type="button" (click)="resetForm()">Cancel</button>
+</form>
