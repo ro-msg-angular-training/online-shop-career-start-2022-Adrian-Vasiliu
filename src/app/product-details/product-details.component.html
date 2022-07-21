@@ -1,8 +1,15 @@
+<span>&larr; Click to see the shopping card :) </span>
 <div id="divBorder">
-<h1>{{componentTitle}}: {{name}}</h1>
-<ul>
-  <li>{{category}}</li>
-  <li>{{price}}</li>
-  <li>{{description}}</li>
-</ul>
+<!--  *ngIf="(product | async) as product"-->
+  <button [routerLink]="['']">Back to products list</button>
+  <h2>Product with ID {{product.id}}</h2>
+  <button (click)="deleteProduct()">Delete product</button>
+  <h1>{{product.name}}</h1>
+  <button (click)="addToCart()">Add to cart</button>
+  <ul>
+    <li>Category: {{product.category}}</li>
+    <li>Price: {{product.price}}</li>
+    <li>Description: {{product.description}}</li>
+    <li> <img src="{{product.image}}" alt="image"> </li>
+  </ul>
 </div>

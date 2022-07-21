@@ -1,0 +1,14 @@
+<br>
+<button [routerLink]="['']">Back to products list</button>
+<p>{{orders.length}} products in shopping cart:</p>
+<table>
+  <tr>
+    <th>Product ID</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let order of orders">
+    <td>{{order.productId}} </td>
+    <td>{{order.quantity}} </td>
+  </tr>
+</table>
+<button (click)="checkout()">checkout</button>
