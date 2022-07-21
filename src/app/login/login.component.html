@@ -1,1 +1,12 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <fieldset class="formSection">
+    <legend>Log-in</legend>
+    <label for="userName">Username:</label>
+    <input type="text" id="userName" name="userName" placeholder="andrei2000">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <br>
+    <input type="submit" [disabled]="!loginForm.valid" value="Log-in">
+  </fieldset>
+</form>
