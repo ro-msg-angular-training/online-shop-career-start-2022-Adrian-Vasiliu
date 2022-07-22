@@ -1,4 +1,4 @@
-<button [routerLink]="['/add-product']">Add product</button>
+<button *ngIf="adminFunctions" [routerLink]="['/add-product']">Add product</button>
 <div>
   <table>
     <tr>

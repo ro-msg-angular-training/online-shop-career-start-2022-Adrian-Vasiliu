@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log("asca");
+    console.log("test");
     const userCredentials: UserCredentials = {
       username: this.loginForm.value.username ?? '',
       password: this.loginForm.value.password ?? '',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/product-list');
       },
       error: () => {
-        alert('Wrong data!')
+        alert('Username or password is incorrect...')
       },
     })
   }

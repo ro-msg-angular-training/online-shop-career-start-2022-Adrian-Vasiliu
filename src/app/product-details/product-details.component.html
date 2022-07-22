@@ -1,14 +1,14 @@
 <div id="divBorder">
   <button [routerLink]="['']">Back to products list</button>
   <h2>Product with ID {{product.id}}</h2>
-  <button (click)="deleteProduct()">Delete product</button>
-  <button [routerLink]="['/edit-product', product.id]">Edit product</button>
+  <button *ngIf="adminFunctions" (click)="deleteProduct()">Delete product</button>
+  <button *ngIf="adminFunctions" [routerLink]="['/edit-product', product.id]">Edit product</button>
   <h1>{{product.name}}</h1>
-  <button (click)="addToCart()">Add to cart</button>
+  <button *ngIf="shopping" (click)="addToCart()">Add to cart</button>
   <ul>
     <li>Category: {{product.category}}</li>
     <li>Price: {{product.price}}</li>
     <li>Description: {{product.description}}</li>
-    <li> <img src="{{product.image}}" alt="image"> </li>
+    <li><img src="{{product.image}}" alt="image"></li>
   </ul>
 </div>

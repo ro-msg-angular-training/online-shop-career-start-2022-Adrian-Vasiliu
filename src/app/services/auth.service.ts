@@ -12,18 +12,24 @@ export class AuthService {
 
   user: User | null = null;
 
-  redirectUrl = ""
+  // redirectUrl = ""
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  isLoggedIn() {
+    return this.user !== null;
+  }
+
+  getUserRoles() {
+    if (this.user == null)
+      return ''
+    return this.user.roles ?? '';
   }
 
   login(uc: UserCredentials): Observable<User> {
     return this.httpClient.post<User>("http://localhost:3000/login", uc).pipe(tap
     ((user) => (this.user = user)));
-  }
-
-  isLoggedIn() {
-    return this.user !== null;
   }
 
 }
