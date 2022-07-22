@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from "@angular/common/http"
 import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
 import {Order} from "../interfaces/Order";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ProductService {
 
   orders: Order [] = []
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService) {
   }
 
   getOrders() {
@@ -32,7 +34,7 @@ export class ProductService {
   }
 
   checkout() {
-    const data = {customer: "doej", products: this.orders}
+    const data = {customer: this.authService.getUsername(), products: this.orders}
     return this.httpClient.post("http://localhost:3000/products", data, {responseType: 'text'});
   }
 

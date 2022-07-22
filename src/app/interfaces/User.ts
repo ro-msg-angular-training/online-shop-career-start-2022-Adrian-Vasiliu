@@ -1,7 +1,7 @@
 export interface User {
-  "username": "doej",
-  "fullName": "John Doe",
-  "roles": [
+  username: string,
+  fullName: string,
+  roles: [
     "user",
     "customer",
     "admin"

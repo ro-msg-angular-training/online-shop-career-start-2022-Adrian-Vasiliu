@@ -19,7 +19,6 @@ export class CustomerGuard implements CanActivate {
     if (roles.includes('customer') || roles.includes('admin')) {
       return true;
     } else {
-      // this.authService.redirectUrl = '/product-list';
       return this.router.parseUrl('/login');
     }
   }

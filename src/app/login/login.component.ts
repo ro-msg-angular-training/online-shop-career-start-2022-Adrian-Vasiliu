@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log("test");
     const userCredentials: UserCredentials = {
       username: this.loginForm.value.username ?? '',
       password: this.loginForm.value.password ?? '',

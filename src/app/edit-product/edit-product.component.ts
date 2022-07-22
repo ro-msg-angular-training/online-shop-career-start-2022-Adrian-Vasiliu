@@ -11,11 +11,6 @@ import {ActivatedRoute} from "@angular/router";
 })
 
 export class EditProductComponent implements OnInit {
-  // editForm = new FormGroup({
-  //   name: new FormControl(''),
-  //   price: new FormControl(-1),
-  // });
-
   editForm = this.formBuilder.group({
     name: ['', Validators.required],
     category: ['', Validators.required],
@@ -66,5 +61,9 @@ export class EditProductComponent implements OnInit {
 
   resetForm() {
     this.ngOnInit();
+  }
+
+  onLeave() {
+    // this.product?.unsubscribe();
   }
 }

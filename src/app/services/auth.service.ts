@@ -12,8 +12,6 @@ export class AuthService {
 
   user: User | null = null;
 
-  // redirectUrl = ""
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -25,6 +23,12 @@ export class AuthService {
     if (this.user == null)
       return ''
     return this.user.roles ?? '';
+  }
+
+  getUsername() {
+    if (this.user == null)
+      return ''
+    return this.user.username ?? '';
   }
 
   login(uc: UserCredentials): Observable<User> {
