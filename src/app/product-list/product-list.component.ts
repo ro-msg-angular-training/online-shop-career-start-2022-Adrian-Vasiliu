@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http"
+import {ProductItem} from "../interfaces/ProductItem";
+import {Observable} from "rxjs";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-product-list',
@@ -6,37 +10,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
+  products$: Observable<ProductItem[]> | undefined;
 
-  products = [
-    {
-      name: "Product1",
-      category: "CategoryI",
-      price: 10,
-      description: "Lorem ipsum loren ipsum"
-    },
-    {
-      name: "Product2",
-      category: "CategoryI",
-      price: 11,
-      description: "Lorem ipsum loren ipsum"
-    },
-    {
-      name: "Product3",
-      category: "CategoryII",
-      price: 100,
-      description: "Lorem ipsum loren ipsum"
-    },
-    {
-      name: "Product4",
-      category: "CategoryIII",
-      price: 110,
-      description: "Lorem ipsum loren ipsum"
-    }
-  ];
+  adminFunctions = false;
+  shopping = false;
 
-  constructor() { }
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService) {
+  }
 
   ngOnInit(): void {
+    this.products$ = this.httpClient.get<ProductItem[]>("http://localhost:3000/products");
+    const roles = this.authService.getUserRoles();
+    if (roles.includes('admin')) {
+      this.adminFunctions = true;
+    }
+    if (roles.includes('customer') || roles.includes('admin')) {
+      this.shopping = true;
+    }
   }
 
 }
