@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {FormBuilder, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
-import {User} from "../../User";
+import {ActivatedRoute, Router} from "@angular/router";
+import {UserCredentials} from "../interfaces/UserCredentials";
 
 @Component({
   selector: 'app-login',
@@ -16,24 +16,29 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
   })
 
-  // user: User = {
-  //   username: "username",
-  //   password: "password"
-  // };
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   login() {
-    const user: User = {
+    console.log("asca");
+    const userCredentials: UserCredentials = {
       username: this.loginForm.value.username ?? '',
       password: this.loginForm.value.password ?? '',
     };
-    this.authService.getUser(user).subscribe();
+    this.authService.login(userCredentials).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/product-list');
+      },
+      error: () => {
+        alert('Wrong data!')
+      },
+    })
   }
+
 }

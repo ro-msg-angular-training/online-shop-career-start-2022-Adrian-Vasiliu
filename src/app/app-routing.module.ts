@@ -6,15 +6,20 @@ import {ShoppingCartComponent} from "./shopping-cart/shopping-cart.component";
 import {EditProductComponent} from "./edit-product/edit-product.component";
 import {AddProductComponent} from "./add-product/add-product.component";
 import {LoginComponent} from "./login/login.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: "product-list", pathMatch: "full"},
-  {path: 'product-details/:id', component: ProductDetailsComponent},
-  {path: 'product-list', component: ProductListComponent},
-  {path: 'shopping-cart', component: ShoppingCartComponent},
-  {path: 'edit-product/:id', component: EditProductComponent},
-  {path: 'add-product', component: AddProductComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  // {path: '', redirectTo: "product-list", pathMatch: "full"},
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [{path: 'product-details/:id', component: ProductDetailsComponent},
+      {path: 'product-list', component: ProductListComponent},
+      {path: 'shopping-cart', component: ShoppingCartComponent},
+      {path: 'edit-product/:id', component: EditProductComponent},
+      {path: 'add-product', component: AddProductComponent}]
+  },
 ];
 
 @NgModule({

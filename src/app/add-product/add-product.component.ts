@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {ProductItemDetailed} from "../../ProductItemDetailed";
+import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
 import {ActivatedRoute} from "@angular/router";
-import {ProductService} from "../product.service";
+import {ProductService} from "../services/product.service";
 
 @Component({
   selector: 'app-add-product',
