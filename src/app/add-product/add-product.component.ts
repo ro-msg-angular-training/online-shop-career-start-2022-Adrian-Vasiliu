@@ -3,6 +3,9 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
 import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../services/product.service";
+import {Store} from "@ngrx/store";
+import {AppState} from "../store/state/app.state";
+import {addProduct} from "../store/actions/product.actions";
 
 @Component({
   selector: 'app-add-product',
@@ -20,22 +23,13 @@ export class AddProductComponent implements OnInit {
     image: ['', Validators.required]
   })
 
-  product: ProductItemDetailed = {
-    id: -1,
-    name: "name",
-    category: "category",
-    price: -1,
-    description: "description",
-    image: "image"
-  };
-
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-
   }
 
   addProduct() {
@@ -47,7 +41,8 @@ export class AddProductComponent implements OnInit {
       description: this.editForm.value.description ?? '',
       image: this.editForm.value.image ?? '',
     };
-    this.productService.addProduct(newProduct).subscribe();
+    // this.productService.addProduct(newProduct).subscribe();
+    this.store.dispatch(addProduct({product: newProduct}));
   }
 
   resetForm() {

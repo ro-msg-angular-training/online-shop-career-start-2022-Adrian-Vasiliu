@@ -21,6 +21,10 @@ export class ProductService {
     return this.orders
   }
 
+  getProducts(): Observable<ProductItemDetailed[]> {
+    return this.httpClient.get<ProductItemDetailed[]>("http://localhost:3000/products");
+  }
+
   getProduct(id: number): Observable<ProductItemDetailed> {
     return this.httpClient.get<ProductItemDetailed>("http://localhost:3000/products/" + id);
   }
@@ -38,12 +42,12 @@ export class ProductService {
     return this.httpClient.post("http://localhost:3000/products", data, {responseType: 'text'});
   }
 
-  updateProduct(product: ProductItemDetailed) {
-    return this.httpClient.put("http://localhost:3000/products/" + product.id, product);
+  updateProduct(product: ProductItemDetailed) : Observable<void> {
+    return this.httpClient.put<void>("http://localhost:3000/products/" + product.id, product);
   }
 
-  addProduct(newProduct: ProductItemDetailed) {
-    return this.httpClient.post("http://localhost:3000/products/", newProduct);
+  addProduct(newProduct: ProductItemDetailed): Observable<ProductItemDetailed> {
+    return this.httpClient.post<ProductItemDetailed>("http://localhost:3000/products/", newProduct);
   }
 
 }

@@ -1,5 +1,5 @@
 <button [routerLink]="['']">Back to products list</button>
-<form [formGroup]="editForm" (ngSubmit)="editSubmitted()">
+<form [formGroup]="editForm" (ngSubmit)="updateProduct()">
   <label for="name">Name: </label>
   <input id="name" type="text" formControlName="name">
   <br>

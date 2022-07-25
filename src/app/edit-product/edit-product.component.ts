@@ -3,6 +3,9 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {ProductService} from "../services/product.service";
 import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
 import {ActivatedRoute} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {AppState} from "../store/state/app.state";
+import {editProduct} from "../store/actions/product.actions";
 
 @Component({
   selector: 'app-edit-product',
@@ -30,7 +33,8 @@ export class EditProductComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -47,7 +51,7 @@ export class EditProductComponent implements OnInit {
     })
   }
 
-  editSubmitted() {
+  updateProduct() {
     const newProduct: ProductItemDetailed = {
       id: this.product.id,
       name: this.editForm.value.name ?? '',
@@ -56,7 +60,7 @@ export class EditProductComponent implements OnInit {
       description: this.editForm.value.description ?? '',
       image: this.editForm.value.image ?? ''
     };
-    this.productService.updateProduct(newProduct).subscribe();
+    this.store.dispatch(editProduct({product: newProduct}));
   }
 
   resetForm() {
