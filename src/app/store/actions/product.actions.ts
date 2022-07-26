@@ -5,11 +5,24 @@ export const loadProducts = createAction(
   '[ProductList Page] Load Products'
 );
 export const loadProductsSuccess = createAction(
-  '[ProductList Page] Load Products Success',
+  '[API] Load Products Success',
   props<{ products: ProductItemDetailed[] }>()
 );
 export const loadProductsFailure = createAction(
-  '[ProductList Page] Load Products Failure',
+  '[API] Load Products Failure',
+  props<{ error: string }>()
+);
+
+export const getProduct = createAction(
+  '[ProductDetails Page] Get Product',
+  props<{ productId: number }>()
+);
+export const getProductSuccess = createAction(
+  '[API] Get Product Success',
+  props<{ product: ProductItemDetailed }>()
+);
+export const getProductFailure = createAction(
+  '[API] Get Products Failure',
   props<{ error: string }>()
 );
 
@@ -40,6 +53,27 @@ export const editProductFailure = createAction(
 );
 
 export const deleteProduct = createAction(
-  '[ProductDetails Page] delete Product',
+  '[ProductDetails Page] Delete Product',
   props<{ id: number }>()
+);
+export const deleteProductSuccess = createAction(
+  '[API] Delete Product',
+  props<{ id: number }>()
+);
+export const deleteProductFailure = createAction(
+  '[API] Delete Product',
+  props<{ error: string }>()
+);
+
+export const addToCart = createAction(
+  '[editProduct Page] addToCart',
+  props<{ product: ProductItemDetailed }>()
+);
+export const addToCartSuccess = createAction(
+  '[API] addToCart',
+  props<{ product: ProductItemDetailed }>()
+);
+export const addToCartFailure = createAction(
+  '[API] addToCart',
+  props<{ error: string }>()
 );

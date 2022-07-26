@@ -5,13 +5,20 @@ import {
   deleteProduct,
   loadProducts,
   loadProductsSuccess,
-  loadProductsFailure, addProductSuccess, addProductFailure, editProduct, editProductSuccess, editProductFailure
+  loadProductsFailure,
+  addProductSuccess,
+  addProductFailure,
+  editProduct,
+  editProductSuccess,
+  editProductFailure,
+  deleteProductSuccess,
+  deleteProductFailure,
+  getProduct, getProductSuccess, getProductFailure
 } from '../actions/product.actions';
 import {ProductService} from '../../services/product.service';
 import {of, from, mergeMap} from 'rxjs';
 import {switchMap, map, catchError, withLatestFrom} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {selectAllProducts} from '../selectors/product.selectors';
 import {AppState} from '../state/app.state';
 
 @Injectable()
@@ -39,6 +46,18 @@ export class ProductEffects {
     )
   );
 
+  getProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getProduct),
+      mergeMap(({ productId }) => {
+        return this.productService.getProduct(productId).pipe(
+          map((product) => getProductSuccess({ product })),
+          catchError((error) => of(getProductFailure({error})))
+        );
+      })
+    );
+  });
+
   addProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addProduct),
@@ -63,13 +82,16 @@ export class ProductEffects {
     );
   });
 
-  // saveProducts$ = createEffect(() =>
-  //     this.actions$.pipe(
-  //       ofType(addProduct, deleteProduct),
-  //       withLatestFrom(this.store.select(selectAllProducts)),
-  //       switchMap(([action, product]) => from(this.productService.addProduct(product)))
-  //     ),
-  //   // Most effects dispatch another action, but this one is just a "fire and forget" effect
-  //   { dispatch: false }
-  // );
+  deleteProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteProduct),
+      mergeMap(({ id }) => {
+        return this.productService.deleteProduct(id).pipe(
+          map(() => deleteProductSuccess({ id })),
+          catchError((error) => of(deleteProductFailure({error})))
+        );
+      })
+    );
+  });
+
 }

@@ -41,7 +41,6 @@ export class AddProductComponent implements OnInit {
       description: this.editForm.value.description ?? '',
       image: this.editForm.value.image ?? '',
     };
-    // this.productService.addProduct(newProduct).subscribe();
     this.store.dispatch(addProduct({product: newProduct}));
   }
 

@@ -1,22 +1,21 @@
 import {createReducer, on} from '@ngrx/store';
-import {
-  addProduct,
-  deleteProduct,
-  loadProducts,
-  loadProductsSuccess,
-  loadProductsFailure, addProductSuccess, addProductFailure, editProduct, editProductSuccess, editProductFailure
-} from '../actions/product.actions';
-
 import {ProductItemDetailed} from "../../interfaces/ProductItemDetailed";
+import {
+  addProduct, deleteProduct, loadProducts, loadProductsSuccess, loadProductsFailure, addProductSuccess,
+  addProductFailure, editProduct, editProductSuccess, editProductFailure, addToCart, addToCartFailure, addToCartSuccess,
+  deleteProductFailure, deleteProductSuccess, getProduct, getProductSuccess, getProductFailure,
+} from '../actions/product.actions';
 
 export interface ProductState {
   products: ProductItemDetailed[];
+  product: ProductItemDetailed | null;
   error: string;
   status: 'pending' | 'loading' | 'error' | 'success';
 }
 
 export const initialState: ProductState = {
   products: [],
+  product: null,
   error: '',
   status: 'pending',
 };
@@ -34,6 +33,20 @@ export const productReducer = createReducer(
   on(loadProductsFailure, (state, {error}) => ({
     ...state,
     error: error,
+    status: 'error',
+  })),
+
+  on(getProduct, (state) => ({
+    ...state,
+    status: 'loading',
+  })),
+  on(getProductSuccess, (state, {product}) => ({
+    ...state,
+    status: 'success',
+    product,
+  })),
+  on(getProductFailure, (state) => ({
+    ...state,
     status: 'error',
   })),
 
@@ -65,8 +78,31 @@ export const productReducer = createReducer(
     status: 'error',
   })),
 
-  on(deleteProduct, (state, {id}) => ({
+  on(deleteProduct, (state) => ({
     ...state,
+    status: 'loading',
+  })),
+  on(deleteProductSuccess, (state, {id}) => ({
+    ...state,
+    status: 'success',
     products: state.products.filter((product) => product.id !== id),
+  })),
+  on(deleteProductFailure, (state) => ({
+    ...state,
+    status: 'error',
+  })),
+
+  on(addToCart, (state) => ({
+    ...state,
+    status: 'loading',
+  })),
+  on(addToCartSuccess, (state, {product}) => ({
+    ...state,
+    status: 'success',
+    products: [...state.products, product],
+  })),
+  on(addToCartFailure, (state) => ({
+    ...state,
+    status: 'error',
   })),
 );

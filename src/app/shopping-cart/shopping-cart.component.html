@@ -1,11 +1,11 @@
 <button [routerLink]="['']">Back to products list</button>
-<p>{{orders.length}} products in shopping cart:</p>
+<!--<p>{{orders.length}} products in shopping cart:</p>-->
 <table>
   <tr>
     <th>Product ID</th>
     <th>Quantity</th>
   </tr>
-  <tr *ngFor="let order of orders">
+  <tr *ngFor="let order of orders$ | async">
     <td>{{order.productId}} </td>
     <td>{{order.quantity}} </td>
   </tr>
