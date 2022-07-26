@@ -1,8 +1,35 @@
-table, th, td {
-  border: 1px solid white;
-  border-collapse: collapse;
+table {
+  width: 100%;
 }
 
-th, td {
-  background-color: #96D4D4;
+.mat-column-product-position {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-product-name {
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.mat-column-product-weight {
+  font-style: italic;
+}
+
+.mat-column-product-symbol {
+  width: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
 }

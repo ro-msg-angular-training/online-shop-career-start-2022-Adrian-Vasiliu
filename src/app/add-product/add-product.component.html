@@ -1,5 +1,5 @@
 <br>
-<button [routerLink]="['']">Back to products list</button>
+<button mat-button color="primary" [routerLink]="['']">Back to products list</button>
 <br> <br>
 <form [formGroup]="editForm" (ngSubmit)="addProduct()">
   <label for="name">Name: </label>
@@ -17,6 +17,6 @@
   <label for="image">Image link: </label>
   <input id="image" type="text" formControlName="image">
   <br>
-  <button type="submit" [disabled]="!editForm.valid">Save</button>
-  <button type="button" (click)="resetForm()">Cancel</button>
+  <button mat-button color="primary" type="submit" [disabled]="!editForm.valid">Save</button>
+  <button mat-button color="primary" type="button" (click)="resetForm()">Cancel</button>
 </form>

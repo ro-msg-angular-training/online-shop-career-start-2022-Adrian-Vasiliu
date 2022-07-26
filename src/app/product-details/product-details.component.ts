@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
-import {ProductService} from "../services/product.service";
-import {AuthService} from "../services/auth.service";
+import {Store} from "@ngrx/store";
+import {AppState} from "../store/state/app.state";
+import {deleteProduct, getProduct} from "../store/actions/product.actions";
+import {addToCart} from "../store/actions/order.actions";
+import {Subscription} from "rxjs";
+import {selectUser} from "../store/selectors/login.selectors";
+import {selectProduct} from "../store/selectors/product.selectors";
 
 @Component({
   selector: 'app-product-details',
@@ -20,33 +25,48 @@ export class ProductDetailsComponent implements OnInit {
     image: "image"
   };
 
+
+  user$ = this.store.select(selectUser);
+  userSubscription = new Subscription();
+  product$ = this.store.select(selectProduct);
+  productSubscription = new Subscription();
   adminFunctions = false;
   shopping = false;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
-    private authService: AuthService
+    private store: Store<AppState>,
   ) {
   }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getProduct(id).subscribe(product => this.product = product)
-    const roles = this.authService.getUserRoles();
-    if (roles.includes('admin')) {
-      this.adminFunctions = true;
-    }
-    if (roles.includes('customer') || roles.includes('admin')) {
-      this.shopping = true;
-    }
+    //this.productService.getProduct(id).subscribe(product => this.product = product)
+
+    this.productSubscription = this.product$.subscribe((product) => {
+      console.table(product);
+      if (product !== null) {
+        this.product = product;
+      }
+    });
+
+    this.store.dispatch(getProduct({productId: id}));
+
+    this.userSubscription = this.user$.subscribe((user) => {
+      // console.table(user);
+      if (user !== null) {
+        this.adminFunctions = user?.roles.includes('admin') ?? false;
+        this.shopping = (user?.roles.includes('customer') || user?.roles.includes('admin')) ?? false;
+      }
+    });
+
   }
 
   addToCart() {
-    this.productService.addToCart(this.product);
+    this.store.dispatch(addToCart({productId: this.product.id}));
   }
 
   deleteProduct() {
-    this.productService.deleteProduct(this.product.id).subscribe();
+    this.store.dispatch(deleteProduct({id: this.product.id}));
   }
 }
