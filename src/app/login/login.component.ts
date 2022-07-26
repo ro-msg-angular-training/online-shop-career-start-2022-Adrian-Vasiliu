@@ -43,23 +43,12 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.username ?? '',
       password: this.loginForm.value.password ?? '',
     };
-    // this.authService.login(userCredentials).subscribe({
-    //   next: () => {
-    //     this.router.navigateByUrl('/product-list');
-    //   },
-    //   error: () => {
-    //     alert('Username or password is incorrect...')
-    //   },
-    // })
-
     this.store.dispatch(login({credentials: userCredentials}))
-
     this.loginSuccessSubscription = this.actions
       .pipe(ofType(loginSuccess), withLatestFrom(this.store.select(selectRedirectUrl)))
       .subscribe(([_, redirectUrl]) => {
         this.router.navigateByUrl(redirectUrl);
       });
-
     this.loginErrorSubscription = this.actions
       .pipe(ofType(loginFailure))
       .subscribe(() => alert('Failed to log in!'));

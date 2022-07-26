@@ -3,12 +3,11 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Store} from "@ngrx/store";
 import {AppState} from "../state/app.state";
 import {catchError, map, withLatestFrom} from "rxjs/operators";
-import {from, mergeMap, of} from "rxjs";
+import {mergeMap, of} from "rxjs";
 import {OrderService} from "../../services/order.service";
 import * as ordersActions from "../actions/order.actions";
 import {checkoutFailure} from "../actions/order.actions";
 import {selectAllOrders} from "../selectors/order.selectors";
-import {AuthService} from "../../services/auth.service";
 import {selectUser} from "../selectors/login.selectors";
 
 @Injectable()
@@ -17,7 +16,6 @@ export class OrderEffects {
     private actions$: Actions,
     private store: Store<AppState>,
     private orderService: OrderService,
-    private authService: AuthService,
   ) {
   }
 

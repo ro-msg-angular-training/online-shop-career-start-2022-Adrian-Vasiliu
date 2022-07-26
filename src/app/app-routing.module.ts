@@ -24,7 +24,6 @@ const routes: Routes = [
       },
       {
         path: 'add-product', component: AddProductComponent,
-        // canActivate: [AdminGuard],
       },
       {path: 'edit-product/:id', component: EditProductComponent}]
   },

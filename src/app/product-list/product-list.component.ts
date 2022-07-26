@@ -17,8 +17,7 @@ import {AppState} from "../store/state/app.state";
 export class ProductListComponent implements OnInit {
   public products$ = this.store.select(selectAllProducts);
   adminFunctions = false;
-  displayedColumns: string[] = ['product-name', 'product-price', 'product-details'];
-  // shopping = false;
+  displayedColumns: string[] = ['product-name', 'product-category', 'product-price', 'product-id', 'product-details'];
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
@@ -27,14 +26,10 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadProducts());
-
     const roles = this.authService.getUserRoles();
     if (roles.includes('admin')) {
       this.adminFunctions = true;
     }
-    // if (roles.includes('customer') || roles.includes('admin')) {
-    //   this.shopping = true;
-    // }
   }
 
 }

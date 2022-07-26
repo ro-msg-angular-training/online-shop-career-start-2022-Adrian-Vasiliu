@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductItemDetailed} from "../interfaces/ProductItemDetailed";
-import {ProductService} from "../services/product.service";
-import {AuthService} from "../services/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../store/state/app.state";
 import {deleteProduct, getProduct} from "../store/actions/product.actions";
@@ -10,7 +8,6 @@ import {addToCart} from "../store/actions/order.actions";
 import {Subscription} from "rxjs";
 import {selectUser} from "../store/selectors/login.selectors";
 import {selectProduct} from "../store/selectors/product.selectors";
-import {Actions} from "@ngrx/effects";
 
 @Component({
   selector: 'app-product-details',

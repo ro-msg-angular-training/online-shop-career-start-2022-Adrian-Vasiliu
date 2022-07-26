@@ -1,23 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
-  addProduct,
-  deleteProduct,
-  loadProducts,
-  loadProductsSuccess,
-  loadProductsFailure,
-  addProductSuccess,
-  addProductFailure,
-  editProduct,
-  editProductSuccess,
-  editProductFailure,
-  deleteProductSuccess,
-  deleteProductFailure,
+  addProduct, deleteProduct, loadProducts, loadProductsSuccess, loadProductsFailure, addProductSuccess,
+  addProductFailure, editProduct, editProductSuccess, editProductFailure, deleteProductSuccess, deleteProductFailure,
   getProduct, getProductSuccess, getProductFailure
 } from '../actions/product.actions';
 import {ProductService} from '../../services/product.service';
 import {of, from, mergeMap} from 'rxjs';
-import {switchMap, map, catchError, withLatestFrom} from 'rxjs/operators';
+import {switchMap, map, catchError} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../state/app.state';
 

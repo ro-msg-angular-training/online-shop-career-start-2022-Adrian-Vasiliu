@@ -67,7 +67,4 @@ export class EditProductComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onLeave() {
-    // this.product?.unsubscribe();
-  }
 }

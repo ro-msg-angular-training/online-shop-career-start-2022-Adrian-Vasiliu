@@ -1,10 +1,10 @@
 <div id="divBorder">
-  <button [routerLink]="['']">Back to products list</button>
+  <button mat-button color="primary" [routerLink]="['']">Back to products list</button>
   <h2>Product with ID {{product.id}}</h2>
-  <button *ngIf="adminFunctions" (click)="deleteProduct()">Delete product</button>
-  <button *ngIf="adminFunctions" [routerLink]="['/edit-product', product.id]">Edit product</button>
+  <button mat-button color="primary" *ngIf="adminFunctions" (click)="deleteProduct()">Delete product</button>
+  <button mat-button color="primary" *ngIf="adminFunctions" [routerLink]="['/edit-product', product.id]">Edit product</button>
   <h1>{{product.name}}</h1>
-  <button *ngIf="shopping" (click)="addToCart()">Add to cart</button>
+  <button mat-button color="primary" *ngIf="shopping" (click)="addToCart()">Add to cart</button>
   <ul>
     <li>Category: {{product.category}}</li>
     <li>Price: {{product.price}}</li>
